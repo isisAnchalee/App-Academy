@@ -1,4 +1,5 @@
 require_relative 'deck'
+require 'debugger'
 
 class Hand
   
@@ -22,7 +23,7 @@ class Hand
   
   attr_accessor :cards
   
-  def initialize(cards)
+  def initialize(cards = Hand::deal_from(Deck.new))
     @cards = cards
     @hand_strength = nil
     @high_card = 0
@@ -40,8 +41,10 @@ class Hand
   
   def calculate_hand
     HAND_RANKING.reverse.each do |hand|
-      @hand_strength = HAND_RANKING.find_index(hand) if hand 
-      return @hand_strength
+      if self.send(hand)
+        @hand_strength = HAND_RANKING.find_index(hand) 
+        return @hand_strength
+      end
     end
     @high_card = high_card
   end
@@ -54,15 +57,18 @@ class Hand
     straight? && flush?
   end
   
+  def return_cards(deck)
+    deck.return
+  end
+  
   def straight?
     (0...4).each do |idx|
       if sort_hand[idx + 1].poker_value - sort_hand[idx].poker_value != 1
-        @high_card = sort_hand.last
-        return true
+        return false
       end
     end
-    
-    false
+    @high_card = sort_hand.last
+    true
   end
   
   def flush?

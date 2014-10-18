@@ -31,8 +31,4 @@ RSpec.describe Deck do
       end
     end
   end
-  
-  
-  
-  
 end

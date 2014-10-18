@@ -116,5 +116,12 @@ RSpec.describe Hand do
         expect(new_hand.full_house?).to be_truthy
       end
     end
+    
+    describe "calculate_hand" do
+      it 'calculates the value of a hand' do
+        expect(new_hand.calculate_hand).to eq(7)
+      end 
+    end
+    
   end
 end
