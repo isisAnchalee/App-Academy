@@ -70,4 +70,51 @@ class QuestionLike
   results["COUNT(*)"]
   end
   
+  def self.liked_questions_for_user_id(user_id)
+    query = <<-SQL
+    SELECT 
+      questions.*
+    FROM
+      questions
+    JOIN
+      question_likes
+    ON
+      questions.id = question_likes.question_id
+    WHERE
+      question_likes.user_id = ?
+    SQL
+    
+    results = QuestionsDatabase.instance.execute(query, user_id)
+    results.map do |result|
+      Question.new(result)
+    end
+  end
+  
+  def self.most_liked_questions(n)
+    query = <<-SQL
+    SELECT 
+      *
+    FROM
+      questions
+    JOIN (
+      SELECT 
+        question_id
+      FROM
+        question_likes
+      GROUP BY
+        question_id
+      ORDER BY
+        COUNT(user_id) DESC
+      LIMIT
+        ?
+      ) AS ordered_likes
+    ON
+      questions.id = ordered_likes.question_id  
+    SQL
+    
+    results = QuestionsDatabase.instance.execute(query, n)
+    results.map do |result|
+      Question.new(result)
+    end
+  end
 end

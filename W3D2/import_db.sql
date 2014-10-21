@@ -101,4 +101,8 @@ VALUES
 (
   (SELECT id FROM users WHERE fname = 'Isis' AND lname = 'Wenger'), 
   (SELECT id FROM questions WHERE title = 'Great Question'AND user_id = (SELECT id FROM users WHERE fname = 'Isis' AND lname = 'Wenger'))
+),
+(
+  (SELECT id FROM users WHERE fname = 'David' AND lname = 'Runger'), 
+  (SELECT id FROM questions WHERE title = 'Hygiene'AND user_id = (SELECT id FROM users WHERE fname = 'David' AND lname = 'Runger'))
 );
