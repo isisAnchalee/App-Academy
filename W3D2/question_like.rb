@@ -32,4 +32,42 @@ class QuestionLike
     QuestionLike.new(results)
   end
   
+  def self.likers_for_question_id(question_id)
+    query = <<-SQL
+    SELECT 
+      users.*
+    FROM
+      users
+    JOIN
+      question_likes
+    ON
+      users.id = question_likes.user_id
+    WHERE
+      question_likes.question_id = ?
+    SQL
+    
+    results = QuestionsDatabase.instance.execute(query, question_id)
+    results.map do |result|
+      User.new(result)
+    end
+  end
+  
+  def self.num_likes_for_question_id(question_id)
+    query = <<-SQL
+    SELECT 
+      COUNT(*)
+    FROM
+      users
+    JOIN
+      question_likes
+    ON
+      users.id = question_likes.user_id
+    WHERE
+      question_likes.question_id = ?
+    SQL
+
+  results = QuestionsDatabase.instance.execute(query, question_id).first
+  results["COUNT(*)"]
+  end
+  
 end

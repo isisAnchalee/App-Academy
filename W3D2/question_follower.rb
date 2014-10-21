@@ -75,18 +75,50 @@ class QuestionFollower
   def self.most_followed_questions(n)
     query = <<-SQL
     SELECT 
-      question_id
+      *
     FROM
-      question_followers
-    GROUP BY
-      question_id
-    ORDER BY
-      COUNT(user_id)
-    LIMIT
-      ?
+      questions
+    JOIN (
+      SELECT 
+        question_id
+      FROM
+        question_followers
+      GROUP BY
+        question_id
+      ORDER BY
+        COUNT(user_id) DESC
+      LIMIT
+        ?
+      ) AS ordered_questions
+    ON
+      questions.id = ordered_questions.question_id  
     SQL
     
-    p results = QuestionsDatabase.instance.execute(query, n)
+    results = QuestionsDatabase.instance.execute(query, n)
+    results.map do |result|
+      Question.new(result)
+    end
   end
   
 end
+
+# TO STUDY:
+# query = <<-SQL
+# SELECT
+#   *
+# FROM
+#   questions
+# WHERE
+#   id IN (
+#   SELECT
+#     question_id
+#   FROM
+#     question_followers
+#   GROUP BY
+#     question_id
+#   ORDER BY
+#     COUNT(user_id) DESC
+#   LIMIT
+#     ?
+#   )
+# SQL

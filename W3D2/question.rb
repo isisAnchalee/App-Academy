@@ -51,6 +51,10 @@ class Question
     end
   end
   
+  def self.most_followed(n)
+    QuestionFollower.most_followed_questions(n)
+  end
+  
   def author
     User.find_by_id(user_id)
   end
