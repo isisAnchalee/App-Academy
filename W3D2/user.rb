@@ -5,9 +5,11 @@ require_relative 'reply'
 require_relative 'question_follower'
 require_relative 'question_like'
 require_relative 'questions'
+require_relative 'save'
 
 class User
   
+  include Save
   attr_accessor :id, :fname, :lname
   
   def initialize(options = {})
@@ -82,4 +84,5 @@ class User
     
     QuestionsDatabase.instance.execute(query, id).first['karma']
   end
+  
 end

@@ -5,9 +5,11 @@ require_relative 'question'
 require_relative 'question_follower'
 require_relative 'question_like'
 require_relative 'questions'
+require_relative 'save'
 
 class Reply
   
+  include Save
   attr_reader :id
   attr_accessor :body, :user_id
   

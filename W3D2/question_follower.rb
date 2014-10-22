@@ -5,9 +5,11 @@ require_relative 'question'
 require_relative 'reply'
 require_relative 'question_like'
 require_relative 'questions'
+require_relative 'save'
 
 class QuestionFollower
   
+  include Save
   attr_reader :id
   attr_accessor :user_id, :question_id
   
@@ -101,24 +103,3 @@ class QuestionFollower
   end
   
 end
-
-# TO STUDY:
-# query = <<-SQL
-# SELECT
-#   *
-# FROM
-#   questions
-# WHERE
-#   id IN (
-#   SELECT
-#     question_id
-#   FROM
-#     question_followers
-#   GROUP BY
-#     question_id
-#   ORDER BY
-#     COUNT(user_id) DESC
-#   LIMIT
-#     ?
-#   )
-# SQL
