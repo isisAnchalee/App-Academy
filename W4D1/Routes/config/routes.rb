@@ -1,5 +1,8 @@
 Routes::Application.routes.draw do
-  resources :users, except: [:new, :edit]
-  resources :contacts, except: [:new, :edit]
-  resources :contact_shares
+  resources :users, except: [:new, :edit] do
+    resources :contacts, only: [:index]
+  end
+
+  resources :contacts, except: [:new, :edit, :index]
+  resources :contact_shares, only: [:create, :destroy]
 end
