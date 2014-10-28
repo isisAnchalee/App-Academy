@@ -1,0 +1,17 @@
+<h1> Here is your Cat!</h1>
+<table>
+  <th> Name </th>
+  <th> Sex </th>
+  <th> Color </th>
+  <th> Description </th> 
+  <th> Birth </th>
+  <tr>
+    <td> <%= @cat.name %></td>
+    <td><%= @cat.sex%></td>
+    <td><%= @cat.color%></td>
+    <td><%= @cat.description%></td>
+    <td><%= @cat.birth%></td>
+  </tr>
+</table>
+
+<%= link_to "All of the Cats", cats_url%>
