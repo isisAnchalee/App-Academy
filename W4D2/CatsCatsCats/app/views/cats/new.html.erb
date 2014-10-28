@@ -1,39 +1,4 @@
-<form action="/cats" method="post">
-  <label>Name:
-      <input name="cat[name]" type="text">
-  </label>
-  <br>
-  <label>Birth:
-      <input name="cat[birth]" type="date">
-  </label>
-    <br>
-  <label>Color:
-    <select name="cat[color]">
-      <option> <!-- blank option -->
-      </option>
-      <option value="white">
-        White
-      </option>
-      <option value="black">
-        Black
-      </option>
-      <option value="green">
-        Green
-      </option>
-      <option value="gray">
-        Gray
-      </option>
-    </select>
-  </label>
-    <br>
-    <label>Sex:<br>
-      <input name="cat[sex]" type="radio" value="M"> Male <br>
-      <input name="cat[sex]" type="radio" value="F"> Female <br>
-    </label>
-    <br>
-    <label>Description:<br>
-        <textarea name="cat[description]">
-        </textarea><br>
-    </label>
-    <input type="submit">
-</form>
+<h1> Create a Cat!</h1>
+<%= flash[:errors] && flash[:errors].to_json%>
+
+<%= render 'form' %>
