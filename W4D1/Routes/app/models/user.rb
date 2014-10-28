@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: true
   has_many :contacts
+  has_many :comments, as: :c_ments
+
   has_many(
       :shared_contacts,
       class_name: "ContactShare",
