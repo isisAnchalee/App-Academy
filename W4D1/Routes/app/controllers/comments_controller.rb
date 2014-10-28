@@ -1,8 +1,13 @@
 class CommentsController < ApplicationController
   def index
-    c = Comment.find(params[:contact_id])
 
-    render json: c
+    if request.url =~ /users/
+      @comments = User.find(params[:user_id])
+    else
+      @comments = Contact.find(params[:contact_id])
+    end
+
+    render json: @comments
   end
 
   def create
