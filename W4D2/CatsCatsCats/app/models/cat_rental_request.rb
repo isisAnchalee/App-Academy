@@ -1,3 +1,4 @@
+
 class CatRentalRequest < ActiveRecord::Base
   STATUS = ["PENDING", "APPROVED", "DENIED"]
   
@@ -11,7 +12,7 @@ class CatRentalRequest < ActiveRecord::Base
     (cat1.start_date <= cat2.end_date && cat1.end_date >= cat2.start_date) ||
     (cat2.start_date <= cat1.end_date && cat2.end_date >= cat1.start_date)
   end
-
+  
   def overlapping_approved_requests
     @rental_requests = CatRentalRequest.where('status = ?', 'APPROVED')
     
@@ -29,17 +30,19 @@ class CatRentalRequest < ActiveRecord::Base
   def approve!
     CatRentalRequest.transaction do
       self.status = "APPROVED" 
-    
+      self.save!
+      
       rental_requests = CatRentalRequest.where('status = ?', 'PENDING')
       rental_requests.each do |request|
-        request.deny! if overlapping_requests?(self, request)
-        request.save
+      request.deny! if overlapping_requests?(self, request)
       end
+      
     end
     puts "Approved for #{self.cat}!!"
   end
   
   def deny!
     self.status = "DENIED"
+    self.save!
   end
 end

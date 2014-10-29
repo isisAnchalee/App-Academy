@@ -4,8 +4,6 @@ Rails.application.routes.draw do
     member do
       post 'approve'
       post 'deny'
-      get 'approve'
-      get 'deny'
     end
   end
   

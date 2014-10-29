@@ -2,6 +2,7 @@ class CatRentalRequestsController < ApplicationController
   def index
     @cats = Cat.all
     @requests = CatRentalRequest.all
+    
   end
   
   def create
@@ -33,13 +34,13 @@ class CatRentalRequestsController < ApplicationController
   def deny
     @request = CatRentalRequest.find(params[:id])
     @request.deny!
-    render :index
+    redirect_to cat_url(@request.cat_id)
   end
   
   def approve
     @request = CatRentalRequest.find(params[:id])
     @request.approve!
-    render :index
+    redirect_to cat_url(@request.cat_id)
   end
 
   protected
