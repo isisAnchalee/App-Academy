@@ -4,6 +4,7 @@ class CatRentalRequest < ActiveRecord::Base
   validates :cat_id, :start_date, :end_date, presence: true
   validates :status, inclusion: STATUS
   validate :overlapping_approved_requests
+  validate :no_time_traveling
   belongs_to :cat
   
   def overlapping_requests?(cat1, cat2)
@@ -12,14 +13,33 @@ class CatRentalRequest < ActiveRecord::Base
   end
 
   def overlapping_approved_requests
-    @rental_requests = CatRentalRequest.all.delete(self)
-    @rental_requests.select! do |request|
-      request.status == "APPROVED"
-    end
+    @rental_requests = CatRentalRequest.where('status = ?', 'APPROVED')
+    
     @rental_requests.each do |request|
+      next if request == self
       return false if overlapping_requests?(self, request)
     end
     true
   end
-
+  
+  def no_time_traveling
+    self.start_date < self.end_date
+  end
+  
+  def approve!
+    CatRentalRequest.transaction do
+      self.status = "APPROVED" 
+    
+      rental_requests = CatRentalRequest.where('status = ?', 'PENDING')
+      rental_requests.each do |request|
+        request.deny! if overlapping_requests?(self, request)
+        request.save
+      end
+    end
+    puts "Approved for #{self.cat}!!"
+  end
+  
+  def deny!
+    self.status = "DENIED"
+  end
 end
