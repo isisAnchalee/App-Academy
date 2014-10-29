@@ -1,8 +1,10 @@
 class User < ActiveRecord::Base
-  after_initialize :reset_session_token!
+  before_validation(on: :create) { reset_session_token! }
+  
+  validates :session_token, presence: true 
   
   def reset_session_token!
-    self.session_token = SecureRandom.base64
+    self.session_token = SecureRandom::urlsafe_base64
   end
   
   def password=(password)
@@ -18,9 +20,14 @@ class User < ActiveRecord::Base
      BCrypt::Password.new(attributes["password_digest"]) #rails is MAGIC
   end
   
-  def self.find_by_credentials(user_name, password)
-    u = User.find_by(user_name: user_name)
-    return if u.is_password?(password)
-    u
+  def self.find_by_credentials(options = {})
+    u = User.find_by(user_name: options[:user_name])
+    if u.nil?
+      nil
+    elsif u.is_password?(options[:password])
+      return u
+    else
+      nil
+    end
   end
 end

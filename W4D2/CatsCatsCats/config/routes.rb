@@ -7,4 +7,7 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :users, only: [:new, :create]
+  resource :session, only: [:create, :new]
+  delete '/session' => 'sessions#destroy', :as => 'delete_session'
 end
