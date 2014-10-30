@@ -20,7 +20,7 @@
 	<br>
 
 	<label>Select Band
-	<select name="album[band_id]" id="album_band">
+	<select name="album[band_id]">
 		<% Band.all.each do |band| %>
 			<option value="<%= band.id %>"
 				<%= "selected" if band.id == @album.band_id %>>
@@ -32,10 +32,10 @@
 
 	<p> Recording Type </p>
 	<label for="album_recording_type_studio"> Studio</label>
-	<input type="radio" name="album[recording_type]" value="studio"
+	<input type="radio" name="album[recording_type]" value="Studio"
 	<%= "checked" if @album.recording_type == "studio" %>>
 	<label for="album_recording_type_studio"> Live</label>
-	<input type="radio" name="album[recording_type]" value="live"
+	<input type="radio" name="album[recording_type]" value="Live"
 		<%= "checked" if @album.recording_type == "live" %>>
 	
 	<br>

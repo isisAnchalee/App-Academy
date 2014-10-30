@@ -1,7 +1,8 @@
 class TracksController < ApplicationController
  before_action :prompt_login
- 
+
 	def create
+		@track = Track.new
 	end
 	
 	def new
@@ -18,4 +19,9 @@ class TracksController < ApplicationController
 
 	def destroy
 	end
+
+	def track_params
+		params.require(:track).permit(:album_id, :track_name, :lyrics, :track_type)
+	end
 end
+

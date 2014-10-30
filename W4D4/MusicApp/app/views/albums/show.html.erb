@@ -1,1 +1,13 @@
+<table>
+  <th> Band Name </th>
+  <th> Album Title</th>
+  <th> Recording Type </th>
+  <tr>
+    <td> <%= @album.band.name %> </td>
+    <td><%= @album.album_name%></td>
+    <td><%= @album.recording_type%></td>
+  </tr>
+</table>
+
+<%= button_to "Delete Album", album_url(@album), method: :delete %>
 <%= link_to "Go back", bands_url %>

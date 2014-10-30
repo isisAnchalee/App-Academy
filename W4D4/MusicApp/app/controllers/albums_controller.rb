@@ -1,6 +1,6 @@
 class AlbumsController < ApplicationController
  before_action :prompt_login
- 
+
 	def index
 		@albums = Album.all
 		render :index
@@ -8,12 +8,12 @@ class AlbumsController < ApplicationController
 
 	def create
 		@album = Album.new(album_params)
-		@band = Band.find(album_params[:band_id])
-
+		# fail
 		if @album.save
 			redirect_to album_url(@album)
 		else
-			flash.now[:notice] = "Cannot Create Album"
+			# flash.now[:notice] = "Cannot Create Album"
+			flash.now[:errors] = @album.errors.full_messages
 			render :new
 		end
 	end
