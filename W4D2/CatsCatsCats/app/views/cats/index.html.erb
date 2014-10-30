@@ -1,14 +1,21 @@
-
-<% @cats.each do |cat|%>
-<ul>
-  <li> Name: <%= cat.name %>  
-  </li>
-  <li> 
-    <%= link_to "Show Cat", cat_url(cat)%>
-  </li>
-</ul>
-
-<% end %>
-
+<div id="entire_show">
+<table>
+  <th> Name </th>
+  <th> Sex </th>
+  <th> Color </th>
+  <th> Description </th> 
+  <th> Birth </th>
+   <% @cats.each do |cat| %>
+  <tr>
+    <td> <%= link_to cat.name, cat_url(cat)%></td>
+    <td><%= cat.sex%></td>
+    <td><%= cat.color%></td>
+    <td><%= cat.description%></td>
+    <td><%= cat.birth%></td>
+  </tr>
+  <% end %>
+</table><br>
 <%= link_to "Create a Cat!", new_cat_url %><br>
 <%= link_to "Request a Cat", new_cat_rental_request_url%>
+</div>
+

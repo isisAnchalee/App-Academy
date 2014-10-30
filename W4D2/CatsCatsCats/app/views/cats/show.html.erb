@@ -1,3 +1,4 @@
+<div id="entire_show">
 <h3> <%= @cat.name %>!</h3>
 <table>
   <th> Name </th>
@@ -21,7 +22,8 @@
 
 <br>
 <br>
-<h2> Cat Rental Requests</h2>
+<div id="show_wrapper">
+<h4> <%= @cat.name %>'s Rental Requests</h4>
 <% if @requests.each do |request|%>
 <ul>
   <li>
@@ -36,13 +38,18 @@
   <li> 
     Status: <%= request.status%>
   </li>
+</ul>
   <% if current_user.id == @cat.user_id %>
-  <li> <%= button_to "Approve", approve_cat_rental_request_url(request.id) %>
+  <ul id="show_list">
+  <div id="show_div"><li><%= button_to "Approve", approve_cat_rental_request_url(request.id) %>
   </li>
   <li> <%= button_to "Deny", deny_cat_rental_request_url(request.id) %>
   </li>
+  </div>
+  </ul>
+  </div>
   <% end %>
-</ul>
 <%end%>
 <%end%>
+</div>
 

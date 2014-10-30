@@ -1,0 +1,46 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+ul{
+  list-style-type: none;
+}
+
+li{
+  list-style-type: none;
+  padding:7px;
+}
+
+td{
+  padding:10px;
+}
+
+#show_list{
+  display: inline;
+}
+
+#show_div{
+  margin-left: -60px;
+  margin-top:-160px;
+}
+
+#show_wrapper{
+  margin-left:110px;  
+
+}
+
+#cat_show_wrapper{
+  margin: 0 auto;
+  margin-top:-80px;
+  
+}
+span{
+  font-size:18px;
+  font-weight: bold;
+  
+}
+#entire_show{
+  margin-top:-70px;
+  margin-left:110px;
+  
+}
