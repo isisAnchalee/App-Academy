@@ -15,13 +15,15 @@ class SessionsController < ApplicationController
 		end
 	end
 
-	def destroy
-	end
+  def destroy
+    @session = current_user
+    log_out! && @session.reset_session_token!
+    redirect_to users_url
+  end
 
 	private
 
 	def session_params
 		params.require(:user).permit(:email, :password)
 	end
-
 end

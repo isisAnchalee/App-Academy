@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
 	end
 
 	def reset_session_token!
-		 self.session_token = SecureRandom.urlsafe_base64(16)
-		 self.save!
+		self.generate_session_token
+		self.session_token #return the session token
 	end
 
 	def password=(password)
@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
 		@user = User.find_by(email: email)
 		@user && @user.is_password?(password) ? @user : nil
 	end
+
 end
 
 
