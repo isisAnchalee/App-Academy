@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
 
 	def ensure_session_token
 		 self.session_token ||= SecureRandom.urlsafe_base64(16)
-		 self.save!
 	end
 
 	def self.generate_session_token
@@ -40,3 +39,5 @@ class User < ActiveRecord::Base
 		@user && @user.is_password?(password) ? @user : nil
 	end
 end
+
+
