@@ -1,9 +1,17 @@
-<%= render partial: "layouts/errors" %>
+
 
 <form action="/users" method="POST">
+  <input 
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+    
  <label>Username:
-     <input name="user[user_name]" type="text">
+    <input 
+      name="user[user_name]" 
+      type="text">
  </label><br>
+ 
  <label>Password:
      <input name="user[password]" type="password">
  </label><br>

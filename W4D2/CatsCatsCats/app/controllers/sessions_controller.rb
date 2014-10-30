@@ -1,4 +1,10 @@
 class SessionsController < ApplicationController
+  before_action :to_cats, only: [:new, :create]
+  
+  def to_cats
+    redirect_to(cats_url) if !current_user.nil?
+  end
+  
   def new
     @session = User.new 
     render :new
@@ -6,9 +12,7 @@ class SessionsController < ApplicationController
 
   def create
     if @session = User.find_by_credentials(session_params)
-      @session.reset_session_token!
-      session[:session_token] = @session.session_token
-      @session.save!
+      login_user!(@session)
       redirect_to cats_url
     else
       render :new

@@ -1,7 +1,11 @@
 class User < ActiveRecord::Base
   before_validation(on: :create) { reset_session_token! }
+  attr_reader :password
   
-  validates :session_token, presence: true 
+  validates :session_token, :user_name, :password_digest, presence: true 
+  validates :password, length: { minimum: 6, allow_nil: true}
+  has_many :cats
+  has_many :requests
   
   def reset_session_token!
     self.session_token = SecureRandom::urlsafe_base64
@@ -16,18 +20,20 @@ class User < ActiveRecord::Base
     password_digest.is_password?(password)
   end
   
-  def password_digest
-     BCrypt::Password.new(attributes["password_digest"]) #rails is MAGIC
+  def badger=(asdf)
+    100.times{puts 'digs'}
   end
   
-  def self.find_by_credentials(options = {})
-    u = User.find_by(user_name: options[:user_name])
-    if u.nil?
-      nil
-    elsif u.is_password?(options[:password])
-      return u
-    else
-      nil
+  def password_digest
+     BCrypt::Password.new(read_attribute("password_digest")) #rails is MAGIC
+  end
+  
+  def self.find_by_credentials(user_options = {})
+    
+    user = User.find_by(user_name: user_options[:user_name])
+    if user && user.is_password?(user_options[:password])
+      user
     end
   end
+  
 end

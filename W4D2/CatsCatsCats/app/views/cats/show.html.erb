@@ -1,4 +1,4 @@
-<h1> Here is your Cat!</h1>
+<h3> <%= @cat.name %>!</h3>
 <table>
   <th> Name </th>
   <th> Sex </th>
@@ -24,6 +24,9 @@
 <h2> Cat Rental Requests</h2>
 <% if @requests.each do |request|%>
 <ul>
+  <li>
+    Requester: <%= User.find(request.user_id).user_name %>
+  </li>
   <li> 
     Start Date: <%= request.start_date%>
   </li>
@@ -33,10 +36,12 @@
   <li> 
     Status: <%= request.status%>
   </li>
+  <% if current_user.id == @cat.user_id %>
   <li> <%= button_to "Approve", approve_cat_rental_request_url(request.id) %>
   </li>
   <li> <%= button_to "Deny", deny_cat_rental_request_url(request.id) %>
   </li>
+  <% end %>
 </ul>
 <%end%>
 <%end%>

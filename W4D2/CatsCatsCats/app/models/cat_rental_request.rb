@@ -3,10 +3,12 @@ class CatRentalRequest < ActiveRecord::Base
   STATUS = ["PENDING", "APPROVED", "DENIED"]
   
   validates :cat_id, :start_date, :end_date, presence: true
+  validates :user, presence: true
   validates :status, inclusion: STATUS
   validate :overlapping_approved_requests
   validate :no_time_traveling
   belongs_to :cat
+  belongs_to :user
   
   def overlapping_requests?(cat1, cat2)
     (cat1.start_date <= cat2.end_date && cat1.end_date >= cat2.start_date) ||

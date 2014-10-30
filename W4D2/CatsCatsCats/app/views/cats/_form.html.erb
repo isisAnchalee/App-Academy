@@ -3,6 +3,9 @@
 <% submit_text = @cat.persisted? ? "Update Cat!" : "Create Cat!" %>
 
 <form action="<%= action_url %>" method="POST">
+  <input type="hidden"
+           name="authenticity_token"
+           value="<%= form_authenticity_token %>">
   <input type="hidden" name="_method" value="<%= method %>">
   <label>Name:
       <input name="cat[name]" type="text" value="<%= @cat.name %>">
@@ -16,29 +19,49 @@
     <select name="cat[color]">
       <option> <!-- blank option -->
       </option>
-      <option value="white", selected="<%'selected' if @cat.color = 'white'%>">
+      <option 
+        value="white" 
+        selected="<%'selected' if @cat.color = 'white'%>">
         White
       </option>
-      <option value="black", selected="<%'selected' if @cat.color = 'black'%>">
+      <option 
+        value="black" 
+        selected="<%'selected' if @cat.color = 'black'%>">
         Black
       </option>
-      <option value="green", selected="<%'selected' if @cat.color = 'green'%>">
+      <option 
+        value="green" 
+        selected="<%'selected' if @cat.color = 'green'%>">
         Green
       </option>
-      <option value="gray", selected="<%'selected' if @cat.color = 'gray'%>">
+      <option 
+        value="gray" 
+        selected="<%'selected' if @cat.color = 'gray'%>">
         Gray
       </option>
     </select>
   </label>
     <br>
     <label>Sex:<br>
-      <input name="cat[sex]" type="radio" value="M" <%= 'checked' if @cat.sex == 'M'%>> Male <br>
-      <input name="cat[sex]" type="radio" value="F" <%= 'checked' if @cat.sex == 'F'%>> Female <br>
-    </label>
+      <input 
+        name="cat[sex]" 
+        type="radio" 
+        value="M" 
+        <%= 'checked' if @cat.sex == 'M'%>> Male <br>
+      </label>
+      
+      <label>
+      <input 
+        name="cat[sex]" 
+        type="radio" 
+        value="F" 
+        <%= 'checked' if @cat.sex == 'F'%>> Female <br>
+      </label>
     <br>
     <label>Description:<br>
-        <textarea name="cat[description]"><%= @cat.description %>
-        </textarea><br>
+      <textarea 
+        name="cat[description]"
+        ><%= @cat.description %></textarea><br>
     </label>
     <input type="submit" value="<%=submit_text%>">
 </form>
