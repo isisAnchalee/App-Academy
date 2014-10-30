@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 		@user = User.find_by_credentials(session_params[:email],session_params[:password] )
 		if @user
 			log_in!(@user)
-			redirect_to users_url
+			redirect_to bands_url
 		else
 			render :new
 		end
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
   def destroy
     @session = current_user
     log_out! && @session.reset_session_token!
-    redirect_to users_url
+    redirect_to new_session_url
   end
 
 	private

@@ -1,5 +1,6 @@
 class TracksController < ApplicationController
-
+ before_action :prompt_login
+ 
 	def create
 	end
 	

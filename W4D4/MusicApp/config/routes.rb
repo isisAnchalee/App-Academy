@@ -10,7 +10,7 @@ resources :bands, only: [:show] do
 	resources :albums, only: [:new]
 end
 
-resources :albums, except: [:show, :new, :put, :index]
+resources :albums, except: [:new, :put, :index]
 
 resources :albums, only: [:show] do
 	resources :tracks, only: [:new]

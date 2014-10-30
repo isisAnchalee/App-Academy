@@ -1,16 +1,25 @@
-<% method == "create" ? action = "POST" : action = "PATCH" %>
-<% method == "create" ? link = albums_url : link = album_url(album) %>
-<% method == "create" ? button = "Create New Album" : button = "Edit Album #{album.name}" %>
+<% action_url = @album.persisted? ? album_url(@album) : albums_url %>
+<% method = @album.persisted? ? "PATCH" : "POST" %>
+<% submit_text = @album.persisted? ? "Update Album!" : "Create Album!" %>
 
-<form action="<%= link %>" method="POST" >
-	<input type="hidden" name="_method" value="<%= action %>">
-	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<form action="<%= action_url %>" method="POST" >
 
-	<label for="album_name">Album Name</label>
-	<input type="text" name="album[name]" id="album_name" value="<%= album.name %>">
+	<input type="hidden" 
+	name="_method" 
+	value="<%= method %>">
 
+	<input type="hidden" 
+	name="authenticity_token" 
+	value="<%= form_authenticity_token %>">
+
+	<label>Album Name:
+	<input type="text" 
+		name="album[album_name]" 
+		value="">
+	</label>
 	<br>
-	<label for="album_band">Select Band</label>
+
+	<label>Select Band
 	<select name="album[band_id]" id="album_band">
 		<% Band.all.each do |band| %>
 			<option value="<%= band.id %>"
@@ -18,6 +27,7 @@
 				<%= band.name %></option>
 		<% end %>
 	</select>
+	</label>
 	<br>
 
 	<p> Recording Type </p>
@@ -27,9 +37,7 @@
 	<label for="album_recording_type_studio"> Live</label>
 	<input type="radio" name="album[recording_type]" value="live"
 		<%= "checked" if @album.recording_type == "live" %>>
+	
 	<br>
-		<label for="album_album_image">Image</label>
-		<input type="text" id="album_album_image" name="album[album_image]" value="<%= album.album_image %>">
-	<br>
-	<input type="submit" value="<%= button %>">
+	<input type="submit" value="<%= submit_text %>">
 </form>

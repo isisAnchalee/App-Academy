@@ -1,30 +1,3 @@
-<form action="/albums" method="POST" >
-	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-	<label for="album_name">Album Name</label>
-	<input type="text" name="album[name]" id="album_name" value="<%= album.name %>">
-
-	<br>
-	<label for="album_band">Select Band</label>
-	<select name="album[band_id]" id="album_band">
-		<% Band.all.each do |band| %>
-			<option value="<%= band.id %>"
-				<%= "selected" if band.id == @album.band_id %>>
-				<%= band.name %></option>
-		<% end %>
-	</select>
-	<br>
-
-	<p> Recording Type </p>
-	<label for="album_recording_type_studio"> Studio</label>
-	<input type="radio" name="album[recording_type]" value="studio"
-	<%= "checked" if @album.recording_type == "studio" %>>
-	<label for="album_recording_type_studio"> Live</label>
-	<input type="radio" name="album[recording_type]" value="live"
-		<%= "checked" if @album.recording_type == "live" %>>
-	<br>
-		<label for="album_album_image">Image</label>
-		<input type="text" id="album_album_image" name="album[album_image]" value="<%= album.album_image %>">
-	<br>
-	<input type="submit" value="<%= button %>">
-</form>
+<%= render partial: "layouts/errors" %>
+<%= render 'form' %>
+<%= link_to "Go back", bands_url %>

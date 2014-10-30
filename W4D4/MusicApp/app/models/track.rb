@@ -1,5 +1,5 @@
 class Track < ActiveRecord::Base
-	validates :title, presence: true, uniqueness: { scope: :album }
+	validates :track_name, presence: true, uniqueness: { scope: :album }
   validates :album, presence: true
 
 	belongs_to :album
