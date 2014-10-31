@@ -1,0 +1,16 @@
+<form action='/users' method='POST'>
+  <%= auth_token_input %>
+  <label> Email:
+    <input 
+    type='text' 
+    name='user[email]'>
+  </label>
+  
+  <label> Password:
+    <input 
+    type='password' 
+    name='user[password]'>
+  </label>
+  
+  <input type="submit">
+</form>

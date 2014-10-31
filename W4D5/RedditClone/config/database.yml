@@ -1,0 +1,3 @@
+development:
+  database: RedditClone_development
+  adapter: postgresql   
