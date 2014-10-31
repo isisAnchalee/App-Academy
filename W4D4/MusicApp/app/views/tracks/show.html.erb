@@ -1,0 +1,13 @@
+
+<table>
+<ul>
+    <li>Track Name: <%= @track.track_name %> </li>
+    <li>Band Name: <%= @track.band.name%></li>
+    <li> Album: <%= @track.album.album_name%></li>
+    <li>Lyrics: <%= @track.lyrics %></li>
+</ul>
+
+<%= button_to "Delete Track", track_url(@track), method: :delete %>
+<%= link_to "Edit Track", edit_track_url(@track) %><br>
+<%= link_to "New Track", new_album_track_url(@track.album, @track) %><br>
+<%= link_to "Go back", bands_url %>
