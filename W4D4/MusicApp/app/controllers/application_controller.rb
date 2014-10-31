@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def prompt_login
     unless logged_in?
-      flash[:notice] = "Plase Login To See Pages"
+      flash[:errors] = "Plase Login To See Pages"
       redirect_to new_session_url
     end
   end

@@ -31,13 +31,19 @@
 	<br>
 
 	<p> Recording Type </p>
-	<label for="album_recording_type_studio"> Studio</label>
-	<input type="radio" name="album[recording_type]" value="Studio"
-	<%= "checked" if @album.recording_type == "studio" %>>
-	<label for="album_recording_type_studio"> Live</label>
-	<input type="radio" name="album[recording_type]" value="Live"
+	<label> Studio
+		<input type="radio"
+		name="album[recording_type]" 
+		value="Studio"
+		<%= "checked" if @album.recording_type == "studio" %>>
+	</label>
+
+	<label> Live
+	<input type="radio" 
+		name="album[recording_type]" 
+		value="Live"
 		<%= "checked" if @album.recording_type == "live" %>>
-	
+	</label>
 	<br>
 	<input type="submit" value="<%= submit_text %>">
 </form>

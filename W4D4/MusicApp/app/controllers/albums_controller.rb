@@ -8,11 +8,9 @@ class AlbumsController < ApplicationController
 
 	def create
 		@album = Album.new(album_params)
-		# fail
 		if @album.save
 			redirect_to album_url(@album)
 		else
-			# flash.now[:notice] = "Cannot Create Album"
 			flash.now[:errors] = @album.errors.full_messages
 			render :new
 		end
@@ -38,7 +36,7 @@ class AlbumsController < ApplicationController
 		if @album.update(album_params)
 			redirect_to album_url(@album)
 		else
-			flash.now[:notice] = "Cannot edit that!"
+			flash.now[:errors] = "Cannot edit that!"
 			render :edit
 		end
 	end
@@ -48,7 +46,7 @@ class AlbumsController < ApplicationController
 	    if @album.destroy
 	      redirect_to bands_url
 	    else
-	    	flash.now[:notice] = "Cannot destroy this album!"
+	    	flash.now[:errors] = "Cannot destroy this album!"
 	    render :show
 	  end
 	end
