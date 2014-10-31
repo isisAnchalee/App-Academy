@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
   after_initialize :ensure_secret_token
   attr_reader :password
+  has_many :subs, dependent: :destroy
   
   def password=(password)
     @password = password
