@@ -1,0 +1,19 @@
+
+<ul>
+  <li>
+    Title:
+    <%= @post.title %>
+  </li>
+  <li>
+    url:
+    <%= @post.url %>
+  </li>
+  <li>
+    Content:
+    <%= @post.content %>
+  </li>
+</ul>
+<% if @post.user == current_user %>
+<%= button_to "Delete Post", sub_post_url(@post.sub, @post), method: :delete %>
+<%end%>
+<%= link_to "Home", subs_url%>

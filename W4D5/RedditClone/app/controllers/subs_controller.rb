@@ -13,7 +13,7 @@ class SubsController < ApplicationController
   
   def create
     @sub = Sub.new(sub_params)
-    @sub.user_id = current_user.id
+    @sub.moderator = current_user
     
     if @sub.save
       redirect_to sub_url(@sub)
@@ -45,7 +45,15 @@ class SubsController < ApplicationController
   
   def show
     @sub = Sub.find(params[:id])
+    @posts = @sub.posts
     render :show
+  end
+  
+  def destroy
+    @sub = Sub.find(params[:id])
+    if @sub.destroy
+      redirect_to subs_url
+    end
   end
   
   private
