@@ -1,14 +1,14 @@
 <h1> <%= @sub.title%> </h1>
 <p> Author: <%= @sub.moderator.email.capitalize %><br><br>
- <%@posts.each do |post| %>
+ <% @posts.each do |post| %>
  <ul>
    <li>
-     <%= link_to post.title, sub_post_url(@sub, post) %>
+     <%= link_to post.title, post_url(post) %>
    </li>
  </ul>
  <%end%>
 
-<%= link_to 'Create Post', new_sub_post_url(@sub)%>
+<%= link_to 'Create Post', new_post_url(@sub)%>
 <% if @sub.moderator == current_user %>
 <%= link_to 'Edit Sub', edit_user_sub_url(current_user, @sub)%>
 <%= button_to 'Delete Sub', sub_url(@sub), method: :delete%>

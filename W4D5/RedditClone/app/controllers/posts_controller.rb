@@ -6,11 +6,11 @@ class PostsController < ApplicationController
   end
   
   def create
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id
-    @post.sub_id = params[:sub_id]
+    @post = current_user.posts.new(post_params)
+    # @post.user_id = current_user.id
+    @post.sub_ids = post_params[:sub_ids]
     if @post.save
-      redirect_to sub_url(params[:sub_id])
+      redirect_to sub_url(@post.subs.first)
     else
       flash.now[:errors] = "Fail sauce!"
       render :new
@@ -23,16 +23,18 @@ class PostsController < ApplicationController
   
   def edit
     @subs = Sub.all
-    @post = Post.new
+    @post = Post.find(params[:id])
     render :edit
   end
   
   def update
     @post = Post.find(params[:id])
+    # fail
     if @post.update(post_params)
-      redirect_to sub_posts_url
+      redirect_to post_url(@post)
     else
       flash.now[:error] = "Failed!!"
+      render :edit
     end
   end
   
@@ -45,6 +47,6 @@ class PostsController < ApplicationController
   
   private
   def post_params
-    params.require(:post).permit(:title, :content, :url, sub_id: [])
+    params.require(:post).permit(:title, :content, :url, sub_ids: [])
   end
 end

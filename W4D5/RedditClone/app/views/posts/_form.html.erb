@@ -1,4 +1,4 @@
-<% action_url = @post.persisted? ? sub_post_url(@post) : sub_posts_url%>
+<% action_url = @post.persisted? ? post_url(@post) : posts_url%>
 <% method = @post.persisted? ? "PATCH" : "POST" %>
 <% submit_text = @post.persisted? ? "Update!" : "Create!"%>
 
@@ -10,14 +10,16 @@
     <br>
     <input type="text" 
     name="post[title]" 
-    value="">
+    value="<%= @post.title %>">
   </label>
   <br>
   <label>
   <% @subs.each do |sub|%>
   <input type="checkbox"
-   name="post[sub_id][]" 
-   value="<%=sub.id%>">
+   name="post[sub_ids][]" 
+   value="<%=sub.id%>"
+   <%= "checked" if @post.sub_ids.include?(sub.id) %>
+   >
    <%=sub.title%> 
   <%end%>
   </label>
@@ -26,14 +28,14 @@
     <br>
     <input type="text" 
     name="post[url]" 
-    value="">
+    value="<%= @post.url %>">
   </label>
   <br>
   <label>Content:
     <br>
     <textarea 
     name="post[content]"
-    ></textarea> 
+    ><%= @post.content %></textarea> 
   </label> 
   <br>
   <input type="submit" value="<%= submit_text%>">

@@ -46,6 +46,7 @@ class SubsController < ApplicationController
   def show
     @sub = Sub.find(params[:id])
     @posts = @sub.posts
+    # fail
     render :show
   end
   
@@ -59,6 +60,6 @@ class SubsController < ApplicationController
   private
   
   def sub_params
-    params.require(:sub).permit(:title, :description, :user_id)
+    params.require(:sub).permit(:title, :description)
   end
 end

@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   after_initialize :ensure_secret_token
   attr_reader :password
   has_many :subs, dependent: :destroy
+  has_many :posts, foreign_key: :user_id
   
   def password=(password)
     @password = password
