@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :require_login, only: [:create, :edit, :update, :destroy]
   def new
     @subs = Sub.all
     @post = Post.new

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
   
   def require_login
-    # redirect_to NEW SESSION unless logged_in?
+     redirect_to new_session_url unless logged_in?
   end
   
   def logged_in?

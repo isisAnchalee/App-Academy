@@ -1,5 +1,6 @@
 class SubsController < ApplicationController
   before_action :validate_post_author, only: [:update]
+  before_action :require_login, only: [:new, :edit, :create, :update, :destroy]
   
   def validate_post_author
     @sub = Sub.find_by(params[:id])
@@ -46,7 +47,6 @@ class SubsController < ApplicationController
   def show
     @sub = Sub.find(params[:id])
     @posts = @sub.posts
-    # fail
     render :show
   end
   

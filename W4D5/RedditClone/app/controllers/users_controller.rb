@@ -25,15 +25,27 @@ class UsersController < ApplicationController
   end
   
   def edit
-    
+    @user = User.find(params[:id])
+    render :edit
   end
   
   def destroy
-    
+    @user = User.find(params[:id])
+    if @user.destroy
+      redirect_to :new
+    else
+      flash.now[:errors] = "Cannot delete user!"
+    end
   end
   
-  
   def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to users_url
+    else
+      flash.now[:errors] = "Invalid login input!"
+      render :edit
+    end
   end
   
   private
