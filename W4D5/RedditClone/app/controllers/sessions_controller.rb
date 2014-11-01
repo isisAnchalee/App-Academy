@@ -1,4 +1,9 @@
 class SessionsController < ApplicationController
+  before_action :to_index, only: [:new, :create]
+  
+  def to_index
+    redirect_to(subs_url) if !current_user.nil?
+  end
   def new
     @user = User.new
   end

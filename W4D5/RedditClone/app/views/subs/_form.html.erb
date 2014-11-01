@@ -8,13 +8,13 @@
   <%= auth_token_input %>
   <label> Title:
     <br>
-    <input type="text" name="sub[title]" value="">
+    <input type="text" name="sub[title]" value="<%= @sub.title %>">
   </label>
   <br>
   <label>Description:
     <br>
-    <textarea name="sub[description]"></textarea> 
+    <textarea name="sub[description]"><%= @sub.description %></textarea> 
   </label> 
   <br>
-  <input type="submit" value="<%= submit_text%>">
+  <input type="submit" value="<%= submit_text %>">
 </form>

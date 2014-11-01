@@ -18,7 +18,7 @@ class SubsController < ApplicationController
     if @sub.save
       redirect_to sub_url(@sub)
     else
-      flash.now[:error] = 'Cannot create this sub :('
+      flash.now[:errors] = 'Cannot create this sub :('
       render :new
     end
   end
@@ -38,7 +38,7 @@ class SubsController < ApplicationController
     if @sub.update
       redirect_to sub_url(@sub)
     else
-      flash.now[:error]= 'Cannot edit this!'
+      flash.now[:errors] = 'Cannot edit this!'
       render :edit
     end
   end

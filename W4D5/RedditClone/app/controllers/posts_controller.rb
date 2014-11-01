@@ -7,7 +7,6 @@ class PostsController < ApplicationController
   
   def create
     @post = current_user.posts.new(post_params)
-    # @post.user_id = current_user.id
     @post.sub_ids = post_params[:sub_ids]
     if @post.save
       redirect_to sub_url(@post.subs.first)
@@ -29,11 +28,10 @@ class PostsController < ApplicationController
   
   def update
     @post = Post.find(params[:id])
-    # fail
     if @post.update(post_params)
       redirect_to post_url(@post)
     else
-      flash.now[:error] = "Failed!!"
+      flash.now[:errors] = "Failed!!"
       render :edit
     end
   end

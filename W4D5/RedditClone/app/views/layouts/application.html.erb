@@ -8,9 +8,7 @@
 </head>
 <body>
 
-<% if flash[:errors] %>
-<div class='errors'><%= flash[:errors] %></div>
-<% end %>
+<%= render partial: "layouts/errors" %>
 
 <% if logged_in? %>
 <h4> Welcome! You are logged in as <%= current_user.email %>!</h4>
